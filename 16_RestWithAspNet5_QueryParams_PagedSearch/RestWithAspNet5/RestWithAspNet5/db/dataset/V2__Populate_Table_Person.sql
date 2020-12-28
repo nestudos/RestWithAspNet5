@@ -1,0 +1,1 @@
+INSERT INTO `person` VALUES (1,'Rua paranaue','Ronaldinho','Male','Gaúcho'),(2,'Rua teste, Suécia','Zlatan','Male','Ibrahimovic F');
