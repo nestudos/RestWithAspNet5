@@ -6,4 +6,4 @@ CREATE TABLE `user` (
   `refresh_token` varchar(500) NULL,
   `refresh_token_expiry_time` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);

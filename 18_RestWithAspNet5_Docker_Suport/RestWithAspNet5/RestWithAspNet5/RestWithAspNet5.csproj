@@ -23,6 +23,7 @@
   <ItemGroup>
     <Folder Include="db\dataset\" />
     <Folder Include="db\migrations\" />
+    <Folder Include="ci\" />
     <Folder Include="UploadDir\" />
   </ItemGroup>
 

@@ -5,4 +5,4 @@ CREATE TABLE `person` (
   `gender` varchar(6) NOT NULL,
   `last_name` varchar(80) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
