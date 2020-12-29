@@ -1,0 +1,7 @@
+services:
+  restwithaspnet5:
+    build:
+      context: C:\Cursos\AspNetCore\RestWithAspNet5\18_RestWithAspNet5_Docker_Suport\RestWithAspNet5
+      dockerfile: RestWithAspNet5/Dockerfile
+    image: restwithaspnet5
+version: '3.4'

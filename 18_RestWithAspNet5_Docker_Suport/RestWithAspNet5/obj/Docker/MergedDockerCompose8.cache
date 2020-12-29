@@ -1,0 +1,62 @@
+networks:
+  udemy-network:
+    driver: bridge
+services:
+  db:
+    build:
+      context: C:\Cursos\AspNetCore\RestWithAspNet5\18_RestWithAspNet5_Docker_Suport\RestWithAspNet5
+      dockerfile: db/Dockerfile
+    command: mysqld --default-authentication-pluguin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: rest_with_asp_net
+      MYSQL_PASSWORD: docker
+      MYSQL_ROOT_PASSWORD: docker
+      MYSQL_USER: docker
+      TZ: America/Sao_Paulo
+    image: rest-with-asp-net-5-db
+    networks:
+      udemy-network: {}
+    ports:
+    - published: 3308
+      target: 3306
+    restart: always
+  rest-with-asp-net-5:
+    build:
+      context: C:\Cursos\AspNetCore\RestWithAspNet5\18_RestWithAspNet5_Docker_Suport\RestWithAspNet5
+      dockerfile: RestWithAspNet5/Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: RestWithAspNet5
+      target: base
+    container_name: RestWithAspNet5
+    depends_on:
+      db:
+        condition: service_started
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      NUGET_FALLBACK_PACKAGES: ''
+      TZ: America/Sao_Paulo
+    image: rest-with-asp-net-5:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages  "/app/bin/Debug/net5.0/RestWithAspNet5.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    networks:
+      udemy-network: {}
+    ports:
+    - published: 44200
+      target: 80
+    tty: true
+    volumes:
+    - C:\Cursos\AspNetCore\RestWithAspNet5\18_RestWithAspNet5_Docker_Suport\RestWithAspNet5\RestWithAspNet5:/app:rw
+    - C:\Users\NAYTON\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\NAYTON\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\NAYTON\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - C:\Users\NAYTON\.nuget\packages:/root/.nuget/packages:ro
+    - C:\Cursos\AspNetCore\RestWithAspNet5\18_RestWithAspNet5_Docker_Suport\RestWithAspNet5:/src:rw
+version: '3.4'
