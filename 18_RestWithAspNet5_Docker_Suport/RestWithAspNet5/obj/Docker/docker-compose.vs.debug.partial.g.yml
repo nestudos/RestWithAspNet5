@@ -1,8 +1,8 @@
 version: '3.4'
 
 services:
-  restwithaspnet5:
-    image: restwithaspnet5:dev
+  rest-with-asp-net-5:
+    image: rest-with-asp-net-5:dev
     container_name: RestWithAspNet5
     build:
       target: base
@@ -12,19 +12,19 @@ services:
     environment:
       - DOTNET_USE_POLLING_FILE_WATCHER=1
       - ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS=true
-      #- NUGET_FALLBACK_PACKAGES=$container_paths_to_fallback_packages_restwithaspnet5$
+      #- NUGET_FALLBACK_PACKAGES=$container_paths_to_fallback_packages_rest-with-asp-net-5$
     volumes:
       - C:\Cursos\AspNetCore\RestWithAspNet5\18_RestWithAspNet5_Docker_Suport\RestWithAspNet5\RestWithAspNet5:/app
       - C:\Cursos\AspNetCore\RestWithAspNet5\18_RestWithAspNet5_Docker_Suport\RestWithAspNet5:/src
       - C:\Users\NAYTON\vsdbg\vs2017u5:/remote_debugger:rw
-#$nuget_volume_mapping_restwithaspnet5$
+#$nuget_volume_mapping_rest-with-asp-net-5$
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
 
     entrypoint: tail -f /dev/null
     labels:
       com.microsoft.visualstudio.debuggee.program: "dotnet"
-      #com.microsoft.visualstudio.debuggee.arguments: " $debuggee_arguments_probing_paths_restwithaspnet5$ \"/app/bin/Debug/net5.0/RestWithAspNet5.dll\""
+      #com.microsoft.visualstudio.debuggee.arguments: " $debuggee_arguments_probing_paths_rest-with-asp-net-5$ \"/app/bin/Debug/net5.0/RestWithAspNet5.dll\""
       com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
       com.microsoft.visualstudio.debuggee.killprogram: "/bin/sh -c \"if PID=$$(pidof dotnet); then kill $$PID; fi\""
     tty: true

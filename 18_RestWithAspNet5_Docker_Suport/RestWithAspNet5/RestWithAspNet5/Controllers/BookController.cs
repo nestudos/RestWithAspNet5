@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RestWithAspNet5.Model;
 using RestWithAspNet5.Business;
 using RestWithAspNet5.Data.VO;
 using Microsoft.AspNetCore.Authorization;
+using RestWithAspNet5.Hypermedia.Filters;
+using System.Collections.Generic;
 
 namespace RestWithAspNet5.Controllers
 {
@@ -23,11 +24,16 @@ namespace RestWithAspNet5.Controllers
             _logger = logger;
             _bookBusiness = bookBusiness;
         }
-        
-        [HttpGet]
-        public IActionResult Get()
+
+        [HttpGet("{sortDirection}/{pageSize}/{page}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
+        [ProducesResponseType((200), Type = typeof(List<BookVO>))]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        public IActionResult Get([FromQuery] string title, string sortDirection, int pageSize, int page)
         {
-            return Ok(_bookBusiness.FindAll());
+            return Ok(_bookBusiness.FindWithPagedSearch(title, sortDirection, pageSize, page));
         }
 
         [HttpGet("{id}")]
